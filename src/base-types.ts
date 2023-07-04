@@ -3,6 +3,7 @@ import {SessionStorage} from './auth/session/session_storage';
 import {BillingSettings} from './billing/types';
 
 export interface ContextParams {
+  cookieDomain?: string;
   API_KEY: string;
   API_SECRET_KEY: string;
   SCOPES: string[] | AuthScopes;

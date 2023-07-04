@@ -1,10 +1,15 @@
 {
-  "name": "@shopify/shopify-api",
-  "version": "5.2.0",
+  "name": "@toddoglethorpe/shopify-api",
+  "version": "5.2.0-cmelendez-pr",
   "description": "Shopify API Library for Node - accelerate development with support for authentication, graphql proxy, webhooks",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "prettier": "@shopify/prettier-config",
+  "private": false,
+  "repository": "git@github.com:toddoglethorpe/nest-shopify.git",
+    "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "scripts": {
     "test": "jest --testPathIgnorePatterns=src/rest-resources/__tests__ --testPathIgnorePatterns=src/auth/session/storage",
     "test_sessionstorage": "jest src/auth/session/storage",
@@ -15,13 +20,6 @@
     "prepublishOnly": "yarn run build",
     "preversion": "yarn run test",
     "postversion": "git push origin main --follow-tags && echo \"Log in to shipit to deploy version $npm_package_version\""
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Shopify/shopify-api-node.git"
   },
   "bugs": {
     "url": "https://github.com/Shopify/shopify-api-node/issues"

@@ -1,4 +1,9 @@
-# `@shopify/shopify-api`
+# Fork of `@shopify/shopify-api` v5.2.0
+
+## ABOUT THIS FORK
+We (and many others) are having authentication problems (mostly with the graphql proxy) and it's likely due to the cookie settings chosen by the authors of this library.
+
+User @cmelendez created a [PR](https://github.com/Shopify/shopify-api-js/issues/726) to hopefully solve everything but it hasn't been merged yet. Also the PR is for v6 and we haven't migrated yet. Hence this fork manually applies the minor changes in the PR.
 
 <!-- ![Build Status]() -->
 

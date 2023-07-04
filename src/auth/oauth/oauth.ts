@@ -59,8 +59,10 @@ const ShopifyOAuth = {
     cookies.set(ShopifyOAuth.STATE_COOKIE_NAME, state, {
       signed: true,
       expires: new Date(Date.now() + 60000),
-      sameSite: 'lax',
+      sameSite: 'none',
       secure: true,
+      path: '/',
+      domain: Context.cookieDomain,
     });
 
     /* eslint-disable @typescript-eslint/naming-convention */
@@ -151,8 +153,10 @@ const ShopifyOAuth = {
       cookies.set(ShopifyOAuth.SESSION_COOKIE_NAME, session.id, {
         signed: true,
         expires: session.expires,
-        sameSite: 'lax',
+        sameSite: 'none',
         secure: true,
+        path: '/',
+        domain: Context.cookieDomain,
       });
     }
 
