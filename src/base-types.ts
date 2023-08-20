@@ -4,6 +4,7 @@ import {BillingSettings} from './billing/types';
 
 export interface ContextParams {
   cookieDomain?: string;
+  cookieExpiresTimeoutMs?: number;
   API_KEY: string;
   API_SECRET_KEY: string;
   SCOPES: string[] | AuthScopes;

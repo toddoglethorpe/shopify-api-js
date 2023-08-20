@@ -1,13 +1,13 @@
 {
   "name": "@toddoglethorpe/shopify-api",
-  "version": "5.2.4-cmelendez-pr",
+  "version": "5.2.5-cmelendez-pr",
   "description": "Shopify API Library for Node - accelerate development with support for authentication, graphql proxy, webhooks",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "prettier": "@shopify/prettier-config",
   "private": false,
   "repository": "git@github.com:toddoglethorpe/nest-shopify.git",
-    "publishConfig": {
+  "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
   "scripts": {

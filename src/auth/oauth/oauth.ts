@@ -58,7 +58,7 @@ const ShopifyOAuth = {
 
     cookies.set(ShopifyOAuth.STATE_COOKIE_NAME, state, {
       signed: true,
-      expires: new Date(Date.now() + 60000),
+      expires: new Date(Date.now() + (Context.cookieExpiresTimeoutMs ?? 60000)),
       sameSite: 'none',
       secure: true,
       path: '/',
