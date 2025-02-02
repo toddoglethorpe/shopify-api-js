@@ -112,6 +112,18 @@ const Context: ContextInterface = {
     if (params.BILLING) {
       this.BILLING = params.BILLING;
     }
+
+    if (params.cookieDomain) {
+      this.cookieDomain = params.cookieDomain;
+    }
+
+    if (params.cookieExpiresTimeoutMs !== undefined) {
+      this.cookieExpiresTimeoutMs = params.cookieExpiresTimeoutMs;
+    }
+
+    if (params.cookieSameSite) {
+      this.cookieSameSite = params.cookieSameSite;
+    }
   },
 
   throwIfUninitialized(): void {

@@ -59,7 +59,7 @@ const ShopifyOAuth = {
     cookies.set(ShopifyOAuth.STATE_COOKIE_NAME, state, {
       signed: true,
       expires: new Date(Date.now() + (Context.cookieExpiresTimeoutMs ?? 60000)),
-      sameSite: 'none',
+      sameSite: Context.cookieSameSite,
       secure: true,
       path: '/',
       domain: Context.cookieDomain,
@@ -153,7 +153,7 @@ const ShopifyOAuth = {
       cookies.set(ShopifyOAuth.SESSION_COOKIE_NAME, session.id, {
         signed: true,
         expires: session.expires,
-        sameSite: 'none',
+        sameSite: Context.cookieSameSite,
         secure: true,
         path: '/',
         domain: Context.cookieDomain,
