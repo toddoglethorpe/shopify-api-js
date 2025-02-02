@@ -124,6 +124,10 @@ const Context: ContextInterface = {
     if (params.cookieSameSite) {
       this.cookieSameSite = params.cookieSameSite;
     }
+
+    if (params.authStateCookiePath) {
+      this.authStateCookiePath = params.authStateCookiePath;
+    }
   },
 
   throwIfUninitialized(): void {

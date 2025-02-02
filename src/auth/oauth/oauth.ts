@@ -61,7 +61,7 @@ const ShopifyOAuth = {
       expires: new Date(Date.now() + (Context.cookieExpiresTimeoutMs ?? 60000)),
       sameSite: Context.cookieSameSite,
       secure: true,
-      path: '/',
+      path: Context.authStateCookiePath,
       domain: Context.cookieDomain,
     });
 
