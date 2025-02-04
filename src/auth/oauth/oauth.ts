@@ -108,12 +108,24 @@ const ShopifyOAuth = {
     deleteCookie(request, response, this.STATE_COOKIE_NAME);
 
     if (!stateFromCookie) {
+      console.info(
+        'shopify-api-js: validateAuthCallback() is going to throw CookieNotFound',
+        {stateFromCookie},
+      );
+      console.log(request.rawHeaders);
+
       throw new ShopifyErrors.CookieNotFound(
         `Cannot complete OAuth process. Could not find an OAuth cookie for shop url: ${query.shop}`,
       );
     }
 
     if (!validQuery(query, stateFromCookie)) {
+      console.info(
+        'shopify-api-js: validateAuthCallback() is going to throw InvalidOAuthError',
+        {stateFromCookie},
+      );
+      console.log(request.rawHeaders);
+
       throw new ShopifyErrors.InvalidOAuthError('Invalid OAuth callback.');
     }
 

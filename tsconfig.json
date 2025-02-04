@@ -1,7 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "composite": true,
+    "composite": false,
     "declaration": true,
     "declarationMap": true,
     "pretty": true,
@@ -31,11 +31,21 @@
       "es2020",
       "esnext.asynciterable"
     ],
-    "typeRoots": ["./node_modules/@types"],
+    "typeRoots": [
+      "./node_modules/@types"
+    ],
     "outDir": "./dist",
     "baseUrl": ".",
     "rootDir": "src"
   },
-  "include": ["./src/**/*.ts", "./src/**/*.tsx"],
-  "exclude": ["**/*.test.ts", "**/*.test.tsx", "**/test/*", "**/__tests__/*"],
+  "include": [
+    "./src/**/*.ts",
+    "./src/**/*.tsx"
+  ],
+  "exclude": [
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/test/*",
+    "**/__tests__/*"
+  ],
 }
