@@ -3,6 +3,8 @@ import {SessionStorage} from './auth/session/session_storage';
 import {BillingSettings} from './billing/types';
 
 export interface ContextParams {
+  sessionCookieName?: string;
+  authStateCookieName?: string;
   authStateCookiePath?: string;
   cookieSameSite?: 'none' | 'lax' | 'strict' | boolean;
   cookieDomain?: string;

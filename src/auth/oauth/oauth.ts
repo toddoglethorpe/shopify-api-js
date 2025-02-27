@@ -24,8 +24,8 @@ import {
 } from './types';
 
 const ShopifyOAuth = {
-  SESSION_COOKIE_NAME: 'shopify_app_session',
-  STATE_COOKIE_NAME: 'shopify_app_state',
+  DEFAULT_SESSION_COOKIE_NAME: 'shopify_app_session',
+  DEFAULT_STATE_COOKIE_NAME: 'shopify_app_state',
 
   /**
    * Initializes a session and cookie for the OAuth process, and returns the necessary authorization url.
@@ -56,14 +56,20 @@ const ShopifyOAuth = {
 
     const state = isOnline ? `online_${nonce()}` : `offline_${nonce()}`;
 
-    cookies.set(ShopifyOAuth.STATE_COOKIE_NAME, state, {
-      signed: true,
-      expires: new Date(Date.now() + (Context.cookieExpiresTimeoutMs ?? 60000)),
-      sameSite: Context.cookieSameSite,
-      secure: true,
-      path: Context.authStateCookiePath,
-      domain: Context.cookieDomain,
-    });
+    cookies.set(
+      Context.authStateCookieName ?? ShopifyOAuth.DEFAULT_STATE_COOKIE_NAME,
+      state,
+      {
+        signed: true,
+        expires: new Date(
+          Date.now() + (Context.cookieExpiresTimeoutMs ?? 60000),
+        ),
+        sameSite: Context.cookieSameSite,
+        secure: true,
+        path: Context.authStateCookiePath,
+        domain: Context.cookieDomain,
+      },
+    );
 
     /* eslint-disable @typescript-eslint/naming-convention */
     const query = {
@@ -100,22 +106,26 @@ const ShopifyOAuth = {
     Context.throwIfUninitialized();
     Context.throwIfPrivateApp('Cannot perform OAuth for private apps');
 
+    const stateCookieName =
+      Context.authStateCookieName ?? this.DEFAULT_STATE_COOKIE_NAME;
+
     const stateFromCookie = getValueFromCookie(
       request,
       response,
-      this.STATE_COOKIE_NAME,
+      stateCookieName,
     );
-    deleteCookie(request, response, this.STATE_COOKIE_NAME);
+    deleteCookie(request, response, stateCookieName);
 
     if (!stateFromCookie) {
       console.info(
         'shopify-api-js: validateAuthCallback() is going to throw CookieNotFound',
         {stateFromCookie},
       );
-      console.log(request.rawHeaders);
+      console.log({url: request.url?.toString()});
+      console.log(JSON.stringify(request.rawHeaders));
 
       throw new ShopifyErrors.CookieNotFound(
-        `Cannot complete OAuth process. Could not find an OAuth cookie for shop url: ${query.shop}`,
+        `Cannot complete OAuth process. Could not find an OAuth cookie named ${stateCookieName} for shop url: ${query.shop}`,
       );
     }
 
@@ -162,14 +172,18 @@ const ShopifyOAuth = {
         secure: true,
       });
 
-      cookies.set(ShopifyOAuth.SESSION_COOKIE_NAME, session.id, {
-        signed: true,
-        expires: session.expires,
-        sameSite: Context.cookieSameSite,
-        secure: true,
-        path: '/',
-        domain: Context.cookieDomain,
-      });
+      cookies.set(
+        Context.sessionCookieName ?? ShopifyOAuth.DEFAULT_SESSION_COOKIE_NAME,
+        session.id,
+        {
+          signed: true,
+          expires: session.expires,
+          sameSite: Context.cookieSameSite,
+          secure: true,
+          path: '/',
+          domain: Context.cookieDomain,
+        },
+      );
     }
 
     const sessionStored = await Context.SESSION_STORAGE.storeSession(session);
@@ -192,7 +206,11 @@ const ShopifyOAuth = {
     request: http.IncomingMessage,
     response: http.ServerResponse,
   ): string | undefined {
-    return getValueFromCookie(request, response, this.SESSION_COOKIE_NAME);
+    return getValueFromCookie(
+      request,
+      response,
+      Context.sessionCookieName ?? this.DEFAULT_SESSION_COOKIE_NAME,
+    );
   },
 
   /**
@@ -256,7 +274,7 @@ const ShopifyOAuth = {
       currentSessionId = getValueFromCookie(
         request,
         response,
-        this.SESSION_COOKIE_NAME,
+        Context.sessionCookieName ?? this.DEFAULT_SESSION_COOKIE_NAME,
       );
     }
 

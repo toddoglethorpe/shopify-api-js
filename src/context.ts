@@ -128,6 +128,14 @@ const Context: ContextInterface = {
     if (params.authStateCookiePath) {
       this.authStateCookiePath = params.authStateCookiePath;
     }
+
+    if (params.authStateCookieName) {
+      this.authStateCookieName = params.authStateCookieName;
+    }
+
+    if (params.sessionCookieName) {
+      this.sessionCookieName = params.sessionCookieName;
+    }
   },
 
   throwIfUninitialized(): void {
