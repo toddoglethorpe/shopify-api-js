@@ -155,9 +155,10 @@ export class HttpClient {
 
           // We're set to multiple tries but ran out
           if (maxTries > 1) {
-            throw new ShopifyErrors.HttpMaxRetriesError(
-              `Exceeded maximum retry count of ${maxTries}. Last message: ${error.message}`,
-            );
+            throw error;
+            // throw new ShopifyErrors.HttpMaxRetriesError(
+            //   `Exceeded maximum retry count of ${maxTries}. Last message: ${error.message}`,
+            // );
           }
         }
 
